@@ -289,6 +289,7 @@ img {
     left: 50%;
     margin-left: -3px;
     border-radius: 10px;
+    z-index: 1;
 }
 
 .timeline-item {
@@ -297,6 +298,8 @@ img {
     width: 50%;
     box-sizing: border-box;
     margin-bottom: 50px;
+    position: relative;
+    z-index: 2;
 }
 
 .timeline-item:nth-child(odd) {
@@ -318,7 +321,8 @@ img {
     align-items: center;
     justify-content: center;
     color: white;
-    z-index: 10;
+    position: absolute;
+    z-index: 3;
     box-shadow: var(--shadow);
 }
 
