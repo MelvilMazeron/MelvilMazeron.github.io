@@ -426,6 +426,232 @@ img {
     background: var(--secondary-color);
 }
 
+/* === SECTION PROJETS FUTURS === */
+.section-projets-futurs {
+    background: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.projets-futurs-list {
+    padding: 0;
+    margin: 0;
+}
+
+.projet-futur-item {
+    display: flex;
+    margin-bottom: 2rem;
+    background: var(--light-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.projet-futur-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+}
+
+.projet-futur-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+    background: var(--gradient-primary);
+    color: white;
+    font-size: 2rem;
+    padding: 1.5rem;
+}
+
+.projet-futur-content {
+    padding: 1.5rem;
+}
+
+.projet-futur-content h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+/* === SECTION DOCUMENT === */
+.section-document {
+    background: var(--light-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.document-intro {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.document-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.document-preview {
+    position: relative;
+    max-width: 600px;
+    width: 100%;
+    height: 400px;
+    margin: 0 auto;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.document-preview:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+}
+
+.document-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: var(--transition);
+}
+
+.document-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: white;
+    color: var(--primary-color);
+    font-size: 3rem;
+}
+
+.document-placeholder p {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    color: var(--text-color);
+}
+
+.document-zoom-icon {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: var(--primary-color);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.8;
+    transition: var(--transition);
+}
+
+.document-preview:hover .document-zoom-icon {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Modal pour l'affichage du document en grand */
+.document-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.document-modal.active {
+    display: flex;
+}
+
+.document-modal-content {
+    max-width: 90%;
+    max-height: 90%;
+    position: relative;
+    background: white;
+    border-radius: var(--border-radius);
+    overflow: auto;
+}
+
+.document-modal-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.document-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2001;
+}
+
+.document-modal-zoom-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 2001;
+}
+
+.zoom-btn {
+    width: 40px;
+    height: 40px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+/* Responsive pour les nouvelles sections */
+@media screen and (max-width: 768px) {
+    .projet-futur-item {
+        flex-direction: column;
+    }
+    
+    .projet-futur-icon {
+        min-width: 100%;
+        padding: 1rem;
+    }
+    
+    .document-preview {
+        height: 300px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .document-preview {
+        height: 250px;
+    }
+}
+
 /* === SECTION VEILLE === */
 .section-veille {
     background: #fff;

@@ -235,6 +235,198 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Ajout de styles CSS pour les nouvelles animations
     addAnimationStyles();
+
+    // Créer la modal pour le document
+    createDocumentModal();
+
+    // Gestionnaire d'événements pour l'aperçu du document
+    const documentPreview = document.querySelector('.document-preview');
+    if (documentPreview) {
+        documentPreview.addEventListener('click', function() {
+            const modal = document.querySelector('.document-modal');
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Empêcher le défilement du body
+            }
+        });
+    }
+
+    // Fonction pour créer la modal du document
+    function createDocumentModal() {
+        // Créer la structure de la modal
+        const modal = document.createElement('div');
+        modal.className = 'document-modal';
+        
+        const modalContent = document.createElement('div');
+        modalContent.className = 'document-modal-content';
+        
+        // Placeholder ou image si elle existe déjà
+        const img = document.createElement('img');
+        img.className = 'document-modal-img';
+        img.src = document.querySelector('.document-preview img')?.src || '#';
+        img.alt = 'Document agrandi';
+        
+        // Si pas d'image encore, utiliser un placeholder
+        if (img.src === window.location.href + '#') {
+            const placeholder = document.createElement('div');
+            placeholder.className = 'document-placeholder';
+            placeholder.style.width = '800px';
+            placeholder.style.height = '600px';
+            
+            const icon = document.createElement('i');
+            icon.className = 'fas fa-file-alt';
+            
+            const text = document.createElement('p');
+            text.textContent = 'Document à venir';
+            
+            placeholder.appendChild(icon);
+            placeholder.appendChild(text);
+            
+            modalContent.appendChild(placeholder);
+        } else {
+            modalContent.appendChild(img);
+        }
+        
+        // Bouton de fermeture
+        const closeBtn = document.createElement('div');
+        closeBtn.className = 'document-modal-close';
+        closeBtn.innerHTML = '<i class="fas fa-times"></i>';
+        
+        // Contrôles de zoom
+        const zoomControls = document.createElement('div');
+        zoomControls.className = 'document-modal-zoom-controls';
+        
+        const zoomInBtn = document.createElement('div');
+        zoomInBtn.className = 'zoom-btn zoom-in';
+        zoomInBtn.innerHTML = '<i class="fas fa-search-plus"></i>';
+        
+        const zoomOutBtn = document.createElement('div');
+        zoomOutBtn.className = 'zoom-btn zoom-out';
+        zoomOutBtn.innerHTML = '<i class="fas fa-search-minus"></i>';
+        
+        const resetZoomBtn = document.createElement('div');
+        resetZoomBtn.className = 'zoom-btn reset-zoom';
+        resetZoomBtn.innerHTML = '<i class="fas fa-undo"></i>';
+        
+        zoomControls.appendChild(zoomInBtn);
+        zoomControls.appendChild(resetZoomBtn);
+        zoomControls.appendChild(zoomOutBtn);
+        
+        modal.appendChild(modalContent);
+        modal.appendChild(closeBtn);
+        modal.appendChild(zoomControls);
+        
+        document.body.appendChild(modal);
+        
+        // Gestionnaires d'événements pour la modal
+        closeBtn.addEventListener('click', function() {
+            modal.classList.remove('active');
+            document.body.style.overflow = ''; // Restaurer le défilement du body
+        });
+        
+        // Fermer la modal en cliquant à l'extérieur du contenu
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Échapper pour fermer la modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Variables pour le zoom
+        let scale = 1;
+        const ZOOM_STEP = 0.2;
+        const MAX_ZOOM = 3;
+        const MIN_ZOOM = 0.5;
+        
+        // Fonctions de zoom
+        zoomInBtn.addEventListener('click', function() {
+            if (scale < MAX_ZOOM) {
+                scale += ZOOM_STEP;
+                applyZoom();
+            }
+        });
+        
+        zoomOutBtn.addEventListener('click', function() {
+            if (scale > MIN_ZOOM) {
+                scale -= ZOOM_STEP;
+                applyZoom();
+            }
+        });
+        
+        resetZoomBtn.addEventListener('click', function() {
+            scale = 1;
+            applyZoom();
+        });
+        
+        function applyZoom() {
+            const contentImg = modalContent.querySelector('img');
+            if (contentImg) {
+                contentImg.style.transform = `scale(${scale})`;
+            }
+        }
+        
+        // Support du zoom avec la molette de la souris
+        modalContent.addEventListener('wheel', function(e) {
+            e.preventDefault();
+            if (e.deltaY < 0 && scale < MAX_ZOOM) {
+                // Zoom in
+                scale += ZOOM_STEP;
+            } else if (e.deltaY > 0 && scale > MIN_ZOOM) {
+                // Zoom out
+                scale -= ZOOM_STEP;
+            }
+            applyZoom();
+        });
+        
+        // Support du pincement pour les appareils tactiles
+        let initialDistance = 0;
+        
+        modalContent.addEventListener('touchstart', function(e) {
+            if (e.touches.length === 2) {
+                initialDistance = Math.hypot(
+                    e.touches[0].pageX - e.touches[1].pageX,
+                    e.touches[0].pageY - e.touches[1].pageY
+                );
+            }
+        });
+        
+        modalContent.addEventListener('touchmove', function(e) {
+            if (e.touches.length === 2) {
+                e.preventDefault();
+                
+                const currentDistance = Math.hypot(
+                    e.touches[0].pageX - e.touches[1].pageX,
+                    e.touches[0].pageY - e.touches[1].pageY
+                );
+                
+                if (initialDistance > 0) {
+                    const delta = currentDistance - initialDistance;
+                    
+                    if (delta > 10 && scale < MAX_ZOOM) {
+                        // Zoom in (pincement écartement)
+                        scale += ZOOM_STEP;
+                        applyZoom();
+                    } else if (delta < -10 && scale > MIN_ZOOM) {
+                        // Zoom out (pincement rapprochement)
+                        scale -= ZOOM_STEP;
+                        applyZoom();
+                    }
+                    
+                    if (Math.abs(delta) > 10) {
+                        initialDistance = currentDistance;
+                    }
+                }
+            }
+        });
+    }
 });
 
 // Fonction pour ajouter les styles CSS pour les animations
