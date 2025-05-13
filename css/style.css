@@ -943,3 +943,128 @@ footer {
 .info-item i:hover, .veille-categorie i:hover, .timeline-icon i:hover {
     animation: spin 1s linear;
 }
+
+/* Ajoutez ces styles à votre fichier CSS existant */
+
+/* === SECTION COMPÉTENCES === */
+.section-competences {
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.skill-card {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+    background: var(--light-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.skill-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+}
+
+.skill-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-right: 1.5rem;
+    min-width: 50px;
+    text-align: center;
+}
+
+.skill-info {
+    flex: 1;
+}
+
+.skill-info h3 {
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+}
+
+.skill-bar {
+    height: 8px;
+    background: rgba(108, 99, 255, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.skill-progress {
+    height: 100%;
+    background: var(--gradient-primary);
+    border-radius: 4px;
+    transition: width 1s ease;
+}
+
+/* === SECTION DOCUMENT (MODIFIÉE) === */
+.section-document {
+    background: var(--light-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.document-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.document-intro {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.document-image {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.document-image:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+}
+
+.document-fixed-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+/* Adaptations pour les écrans mobiles */
+@media screen and (max-width: 768px) {
+    .skill-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .skill-icon {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+    
+    .document-image {
+        max-width: 100%;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+}
