@@ -1,3 +1,5 @@
+// Modification du script JavaScript pour supprimer le code du formulaire de contact
+
 // Attendre que le DOM soit complètement chargé
 document.addEventListener('DOMContentLoaded', function() {
     // Initialisation des animations AOS
@@ -121,94 +123,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Animation des particules d'arrière-plan
     createParticles();
 
-    // Gestion du formulaire de contact
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Simuler l'envoi du formulaire
-            const submitBtn = this.querySelector('.btn-submit');
-            const originalText = submitBtn.textContent;
-            
-            submitBtn.textContent = 'Envoi en cours...';
-            submitBtn.disabled = true;
-            
-            setTimeout(() => {
-                // Réinitialiser le formulaire
-                this.reset();
-                submitBtn.textContent = 'Envoyé !';
-                
-                // Créer une notification
-                showNotification('Message envoyé avec succès !');
-                
-                // Réinitialiser le bouton après 3 secondes
-                setTimeout(() => {
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                }, 3000);
-            }, 1500);
-        });
-    }
-
-    // Fonction pour créer une notification
-    function showNotification(message) {
-        const notification = document.createElement('div');
-        notification.className = 'notification';
-        notification.textContent = message;
-        
-        document.body.appendChild(notification);
-        
-        // Animer l'apparition
-        setTimeout(() => {
-            notification.classList.add('show');
-        }, 10);
-        
-        // Disparition après 3 secondes
-        setTimeout(() => {
-            notification.classList.remove('show');
-            setTimeout(() => {
-                document.body.removeChild(notification);
-            }, 300);
-        }, 3000);
-    }
-
-    // Fonction pour créer des particules d'arrière-plan
-    function createParticles() {
-        const sections = document.querySelectorAll('section');
-        
-        sections.forEach(section => {
-            const particles = document.createElement('div');
-            particles.className = 'particles';
-            
-            for (let i = 0; i < 15; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                // Position aléatoire
-                const posX = Math.random() * 100;
-                const posY = Math.random() * 100;
-                const size = Math.random() * (10 - 2) + 2;
-                const delay = Math.random() * 5;
-                const duration = Math.random() * (15 - 5) + 5;
-                
-                particle.style.cssText = `
-                    width: ${size}px;
-                    height: ${size}px;
-                    left: ${posX}%;
-                    top: ${posY}%;
-                    opacity: ${Math.random() * 0.5};
-                    animation-delay: ${delay}s;
-                    animation-duration: ${duration}s;
-                `;
-                
-                particles.appendChild(particle);
-            }
-            
-            section.appendChild(particles);
-        });
-    }
-
     // Animation au survol des cartes de projet
     const projetCards = document.querySelectorAll('.projet-card');
     
@@ -233,14 +147,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Ajout de styles CSS pour les nouvelles animations
+    // Ajout de styles CSS pour les animations
     addAnimationStyles();
     
     // Gestionnaire d'événements pour l'aperçu du document
     const documentPreview = document.querySelector('.document-preview');
     if (documentPreview) {
         documentPreview.addEventListener('click', function() {
-            // Nous supprimons cette fonctionnalité comme demandé
+            // Fonctionnalité de modal supprimée
             console.log('La fonctionnalité de modal a été supprimée');
         });
     }
@@ -279,13 +193,26 @@ document.addEventListener('DOMContentLoaded', function() {
     if (existingModal) {
         existingModal.remove();
     }
+    
+    // Animation pour les infos de contact
+    const contactInfo = document.querySelector('.contact-info-centered');
+    if (contactInfo) {
+        // Ajouter un effet d'animation lors du survol
+        contactInfo.addEventListener('mouseenter', function() {
+            this.querySelectorAll('.info-item i').forEach((icon, index) => {
+                setTimeout(() => {
+                    icon.classList.add('pulse-animation');
+                }, index * 150);
+            });
+        });
+        
+        contactInfo.addEventListener('mouseleave', function() {
+            this.querySelectorAll('.info-item i').forEach(icon => {
+                icon.classList.remove('pulse-animation');
+            });
+        });
+    }
 });
-
-// Fonction pour la création de la modal du document (vide car nous ne voulons plus cette fonctionnalité)
-function createDocumentModal() {
-    // Cette fonction est vide car nous ne voulons plus créer de modal
-    return;
-}
 
 // Fonction pour ajouter les styles CSS pour les animations
 function addAnimationStyles() {
@@ -323,27 +250,6 @@ function addAnimationStyles() {
             }
         }
         
-        /* Styles pour la notification */
-        .notification {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--primary-color);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transform: translateY(100px);
-            opacity: 0;
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-        
-        .notification.show {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        
         /* Animation des barres du menu hamburger */
         .nav-toggle span {
             transition: all 0.3s ease;
@@ -365,6 +271,53 @@ function addAnimationStyles() {
         .skill-progress {
             transition: width 1.5s ease-in-out;
         }
+        
+        /* Animation pour les icônes de contact */
+        @keyframes pulse-animation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); color: var(--accent-color); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse-animation {
+            animation: pulse-animation 0.8s ease-in-out;
+        }
     `;
     document.head.appendChild(styleSheet);
+}
+
+// Fonction pour créer des particules d'arrière-plan
+function createParticles() {
+    const sections = document.querySelectorAll('section');
+    
+    sections.forEach(section => {
+        const particles = document.createElement('div');
+        particles.className = 'particles';
+        
+        for (let i = 0; i < 15; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            
+            // Position aléatoire
+            const posX = Math.random() * 100;
+            const posY = Math.random() * 100;
+            const size = Math.random() * (10 - 2) + 2;
+            const delay = Math.random() * 5;
+            const duration = Math.random() * (15 - 5) + 5;
+            
+            particle.style.cssText = `
+                width: ${size}px;
+                height: ${size}px;
+                left: ${posX}%;
+                top: ${posY}%;
+                opacity: ${Math.random() * 0.5};
+                animation-delay: ${delay}s;
+                animation-duration: ${duration}s;
+            `;
+            
+            particles.appendChild(particle);
+        }
+        
+        section.appendChild(particles);
+    });
 }

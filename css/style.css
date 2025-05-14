@@ -630,26 +630,69 @@ img {
     font-size: 1.2rem;
 }
 
-/* Responsive pour les nouvelles sections */
-@media screen and (max-width: 768px) {
-    .projet-futur-item {
-        flex-direction: column;
-    }
-    
-    .projet-futur-icon {
-        min-width: 100%;
-        padding: 1rem;
-    }
-    
-    .document-preview {
-        height: 300px;
-    }
+/* === SECTION COMPÉTENCES === */
+.section-competences {
+    background: #fff;
+    position: relative;
+    overflow: hidden;
 }
 
-@media screen and (max-width: 576px) {
-    .document-preview {
-        height: 250px;
-    }
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+/* Styles pour les skill-cards sans barres de progression */
+.skill-card {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+    background: var(--light-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.skill-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+}
+
+.skill-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-right: 1.5rem;
+    min-width: 50px;
+    text-align: center;
+}
+
+.skill-info {
+    flex: 1;
+}
+
+.skill-info h3 {
+    color: var(--dark-color);
+    margin-bottom: 0;
+    font-size: 1.2rem;
+}
+
+/* Pour améliorer l'apparence des cartes de compétences sans les barres */
+.skill-card {
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    text-align: center;
+}
+
+.skill-icon {
+    margin-right: 0;
+    margin-bottom: 1rem;
+    font-size: 3rem;
+    display: block;
+}
+
+.skill-info {
+    text-align: center;
 }
 
 /* === SECTION VEILLE === */
@@ -747,6 +790,61 @@ img {
 .social-icon:hover {
     transform: translateY(-3px);
     background: var(--secondary-color);
+}
+
+/* Styles pour la version centrée du contact */
+.contact-info-only {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+.contact-info-centered {
+    width: 100%;
+    text-align: center;
+    padding: 2.5rem;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.contact-info-centered:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+}
+
+.contact-info-centered .info-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.8rem;
+}
+
+.contact-info-centered .info-item i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-right: 1rem;
+    width: 30px;
+}
+
+.contact-info-centered .social-media {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+}
+
+.contact-info-centered .social-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+    transition: var(--transition);
+}
+
+.contact-info-centered .social-icon:hover {
+    transform: translateY(-5px) scale(1.1);
 }
 
 .form-group {
@@ -873,6 +971,17 @@ footer {
     .contact-container {
         grid-template-columns: 1fr;
     }
+
+    /* Adaptations pour les skill-cards sur mobile */
+    .skill-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .skill-icon {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
 }
 
 @media screen and (max-width: 576px) {
@@ -898,6 +1007,10 @@ footer {
     
     .veille-categorie {
         width: 100%;
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -942,129 +1055,4 @@ footer {
 
 .info-item i:hover, .veille-categorie i:hover, .timeline-icon i:hover {
     animation: spin 1s linear;
-}
-
-/* Ajoutez ces styles à votre fichier CSS existant */
-
-/* === SECTION COMPÉTENCES === */
-.section-competences {
-    background: #fff;
-    position: relative;
-    overflow: hidden;
-}
-
-.skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-}
-
-.skill-card {
-    display: flex;
-    align-items: center;
-    padding: 1.5rem;
-    background: var(--light-color);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-}
-
-.skill-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
-}
-
-.skill-icon {
-    font-size: 2.5rem;
-    color: var(--primary-color);
-    margin-right: 1.5rem;
-    min-width: 50px;
-    text-align: center;
-}
-
-.skill-info {
-    flex: 1;
-}
-
-.skill-info h3 {
-    color: var(--dark-color);
-    margin-bottom: 0.5rem;
-}
-
-.skill-bar {
-    height: 8px;
-    background: rgba(108, 99, 255, 0.2);
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.skill-progress {
-    height: 100%;
-    background: var(--gradient-primary);
-    border-radius: 4px;
-    transition: width 1s ease;
-}
-
-/* === SECTION DOCUMENT (MODIFIÉE) === */
-.section-document {
-    background: var(--light-color);
-    position: relative;
-    overflow: hidden;
-}
-
-.document-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.document-intro {
-    text-align: center;
-    margin-bottom: 2rem;
-    font-size: 1.1rem;
-}
-
-.document-image {
-    max-width: 800px;
-    width: 100%;
-    margin: 0 auto;
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-}
-
-.document-image:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
-}
-
-.document-fixed-image {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    display: block;
-}
-
-/* Adaptations pour les écrans mobiles */
-@media screen and (max-width: 768px) {
-    .skill-card {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .skill-icon {
-        margin-right: 0;
-        margin-bottom: 1rem;
-    }
-    
-    .document-image {
-        max-width: 100%;
-    }
-}
-
-@media screen and (max-width: 576px) {
-    .skills-grid {
-        grid-template-columns: 1fr;
-    }
 }
