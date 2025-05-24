@@ -379,6 +379,9 @@ img {
     overflow: hidden;
     box-shadow: var(--shadow);
     transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .projet-card:hover {
@@ -404,6 +407,9 @@ img {
 
 .projet-info {
     padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .projet-info h3 {
@@ -413,6 +419,7 @@ img {
 
 .projet-info p {
     margin-bottom: 1.2rem;
+    flex-grow: 1;
 }
 
 .btn-projet {
@@ -423,6 +430,9 @@ img {
     border-radius: var(--border-radius);
     font-weight: 500;
     transition: var(--transition);
+    text-align: center;
+    align-self: flex-start;
+    margin-top: auto; 
     
 }
 
