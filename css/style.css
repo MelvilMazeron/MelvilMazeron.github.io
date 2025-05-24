@@ -423,6 +423,7 @@ img {
     border-radius: var(--border-radius);
     font-weight: 500;
     transition: var(--transition);
+    
 }
 
 .btn-projet:hover {
