@@ -725,31 +725,72 @@ img {
     justify-content: space-around;
     flex-wrap: wrap;
     margin-top: 3rem;
+    gap: 2rem;
 }
 
 .veille-categorie {
-    padding: 2rem;
+    padding: 2.5rem 2rem;
     margin: 1rem;
     background: var(--light-color);
     border-radius: var(--border-radius);
-    width: 250px;
+    width: 280px;
     transition: var(--transition);
     box-shadow: var(--shadow);
+    border: 2px solid transparent;
+    position: relative;
+    cursor: default; /* Suppression du curseur pointer */
 }
 
 .veille-categorie:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+    border-color: var(--primary-color);
 }
 
 .veille-categorie i {
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: var(--primary-color);
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    display: block;
+    transition: var(--transition);
+}
+
+.veille-categorie:hover i {
+    color: var(--secondary-color);
+    transform: scale(1.1);
 }
 
 .veille-categorie h3 {
     color: var(--dark-color);
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.veille-categorie p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Ajout d'un effet de bordure décorative */
+.veille-categorie::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 4px;
+    background: var(--primary-color);
+    border-radius: 0 0 10px 10px;
+    transition: var(--transition);
+}
+
+.veille-categorie:hover::before {
+    width: 80px;
+    background: var(--secondary-color);
 }
 
 /* === SECTION CONTACT === */
@@ -995,6 +1036,17 @@ footer {
     .skill-icon {
         margin-right: 0;
         margin-bottom: 1rem;
+    }
+
+    /* Adaptation responsive pour la veille */
+    .veille-categories {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .veille-categorie {
+        width: 100%;
+        max-width: 350px;
     }
 }
 
