@@ -995,6 +995,11 @@ footer {
         text-align: center;
         max-width: 100%;
     }
+
+    .section-accueil {
+        padding-left: 100px;
+        padding-right: 100px;
+    }
     
     .animated-bg {
         display: none;
